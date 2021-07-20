@@ -1,7 +1,7 @@
-import React, { useEffect, useMemo, useState } from 'react';
+import React, { useEffect, useMemo, useState, useCallback } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 
-import { fetchCharacters, charactersSelector } from '../slices/characters';
+import { fetchCharacters, charactersSelector, saveCharacter } from '../slices/characters';
 
 import DataTable from "react-data-table-component";
 
@@ -25,10 +25,14 @@ const CharactersPage = () => {
     setCurrentPage(page);
   };
 
+  const handleSaveCharacter = useCallback(
+    row => async () => {
 
-  const handleDelete = row => {
-    console.log("HOLA", row);
-  }
+      console.log("HOLAv2", row);
+      dispatch(saveCharacter(row));
+    },
+    [dispatch]
+  );
 
   const columns = useMemo(
     () => [
@@ -53,10 +57,10 @@ const CharactersPage = () => {
       },
       {
         // eslint-disable-next-line react/button-has-type
-        cell: row => <button onClick={() => handleDelete(row)}>Delete</button>
+        cell: row => <button onClick={handleSaveCharacter(row)}>Delete</button>
       }
     ],
-    [handleDelete]
+    [handleSaveCharacter]
   );
 
 

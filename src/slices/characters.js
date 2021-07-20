@@ -4,6 +4,8 @@ export const initialState = {
   loading: false,
   hasErrors: false,
   characters: [],
+  savedCharacter: {}
+
 }
 
 const charactersSlice = createSlice({
@@ -11,21 +13,25 @@ const charactersSlice = createSlice({
   initialState,
   reducers: {
     getCharacters: state => {
-      state.loading = true
+      state.loading = true;
     },
     getCharactersSuccess: (state, { payload }) => {
-      state.characters = payload
-      state.loading = false
-      state.hasErrors = false
+      state.characters = payload;
+      state.loading = false;
+      state.hasErrors = false;
     },
     getCharactersFailure: state => {
-      state.loading = false
-      state.hasErrors = true
+      state.loading = false;
+      state.hasErrors = true;
+    },
+    saveCharacterAction: (state, { payload }) => {
+      console.log("HOLA saveCharacterAction", payload);
+      state.savedCharacter = payload;
     },
   },
 })
 
-export const { getCharacters, getCharactersSuccess, getCharactersFailure } = charactersSlice.actions
+export const { getCharacters, getCharactersSuccess, getCharactersFailure, saveCharacter } = charactersSlice.actions
 export const charactersSelector = state => state.characters
 export default charactersSlice.reducer
 
