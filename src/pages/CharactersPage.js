@@ -30,17 +30,17 @@ const CharactersPage = () => {
       {
         name: "First Name",
         selector: "name",
-        sortable: true
+        sortable: false
       },
       {
         name: "Status",
         selector: "status",
-        sortable: true
+        sortable: false
       },
       {
         name: "Type",
         selector: "type",
-        sortable: true
+        sortable: false
       },
       {
         name: "Image",
