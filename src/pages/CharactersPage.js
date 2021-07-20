@@ -42,6 +42,13 @@ const CharactersPage = () => {
         selector: "type",
         sortable: true
       },
+      {
+        name: "Image",
+        cell: (row) => {
+          return <div><img height={125} src={row.image} /></div>
+        },
+        id: "image"
+      }
       // {
       //   // eslint-disable-next-line react/button-has-type
       //   cell: row => <button onClick={handleDelete(row)}>Delete</button>
