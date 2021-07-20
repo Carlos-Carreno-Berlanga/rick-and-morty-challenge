@@ -25,22 +25,24 @@ const CharactersPage = () => {
     setCurrentPage(page);
   };
 
+
+  const handleDelete = row => {
+    console.log("HOLA", row);
+  }
+
   const columns = useMemo(
     () => [
       {
         name: "First Name",
         selector: "name",
-        sortable: false
       },
       {
         name: "Status",
         selector: "status",
-        sortable: false
       },
       {
         name: "Type",
         selector: "type",
-        sortable: false
       },
       {
         name: "Image",
@@ -48,14 +50,16 @@ const CharactersPage = () => {
           return <div><img height={125} src={row.image} /></div>
         },
         id: "image"
+      },
+      {
+        // eslint-disable-next-line react/button-has-type
+        cell: row => <button onClick={() => handleDelete(row)}>Delete</button>
       }
-      // {
-      //   // eslint-disable-next-line react/button-has-type
-      //   cell: row => <button onClick={handleDelete(row)}>Delete</button>
-      // }
     ],
-    // [handleDelete]
+    [handleDelete]
   );
+
+
 
   const renderCharacters = () => {
     if (loading) return <p>Loading...</p>
