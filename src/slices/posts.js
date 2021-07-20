@@ -29,7 +29,7 @@ export const { getPosts, getPostsSuccess, getPostsFailure } = postsSlice.actions
 export const postsSelector = state => state.posts
 export default postsSlice.reducer
 
-export function fetchPosts(page = 1) {
+export function fetchCharacters(page = 1) {
   return async dispatch => {
     dispatch(getPosts())
 
