@@ -72,6 +72,7 @@ const CharactersPage = () => {
           paginationServer
           paginationTotalRows={totalRows}
           paginationDefaultPage={currentPage}
+          paginationPerPage={20}
           onChangePage={handlePageChange}
           selectableRows={false}
           paginationComponentOptions={{ noRowsPerPage: true }}
