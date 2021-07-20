@@ -29,12 +29,12 @@ export const { getPosts, getPostsSuccess, getPostsFailure } = postsSlice.actions
 export const postsSelector = state => state.posts
 export default postsSlice.reducer
 
-export function fetchPosts() {
+export function fetchPosts(page = 1) {
   return async dispatch => {
     dispatch(getPosts())
 
     try {
-      const response = await fetch('https://jsonplaceholder.typicode.com/posts')
+      const response = await fetch(`https://rickandmortyapi.com/api/character/?page=${page}`)
       const data = await response.json()
 
       dispatch(getPostsSuccess(data))
