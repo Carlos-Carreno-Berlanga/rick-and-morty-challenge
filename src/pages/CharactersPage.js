@@ -1,17 +1,17 @@
 import React, { useEffect, useMemo, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 
-import { fetchCharacters, postsSelector } from '../slices/posts';
+import { fetchCharacters, charactersSelector } from '../slices/characters';
 
 import DataTable from "react-data-table-component";
 
 const CharactersPage = () => {
   const dispatch = useDispatch();
-  const { posts, loading, hasErrors } = useSelector(postsSelector);
+  const { characters, loading, hasErrors } = useSelector(charactersSelector);
 
   useEffect(() => {
-    setTotalRows(posts?.info?.count);
-  }, [posts?.info?.count]);
+    setTotalRows(characters?.info?.count);
+  }, [characters?.info?.count]);
 
 
   const [totalRows, setTotalRows] = useState(0);
@@ -50,16 +50,16 @@ const CharactersPage = () => {
     // [handleDelete]
   );
 
-  const renderPosts = () => {
-    if (loading) return <p>Loading posts...</p>
-    if (hasErrors) return <p>Unable to display posts.</p>
-    if (posts?.results?.length > 0) {
+  const renderCharacters = () => {
+    if (loading) return <p>Loading...</p>
+    if (hasErrors) return <p>Unable to display characthers.</p>
+    if (characters?.results?.length > 0) {
 
       return (
         <DataTable
           title="Users"
           columns={columns}
-          data={posts?.results}
+          data={characters?.results}
           progressPending={loading}
           pagination
           paginationServer
@@ -77,7 +77,7 @@ const CharactersPage = () => {
   return (
     <section>
       <h1>Rich and Morty Challenge</h1>
-      {renderPosts()}
+      {renderCharacters()}
     </section>
   )
 }

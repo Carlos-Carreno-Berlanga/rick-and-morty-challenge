@@ -3,43 +3,43 @@ import { createSlice } from '@reduxjs/toolkit'
 export const initialState = {
   loading: false,
   hasErrors: false,
-  posts: [],
+  characters: [],
 }
 
-const postsSlice = createSlice({
-  name: 'posts',
+const charactersSlice = createSlice({
+  name: 'characters',
   initialState,
   reducers: {
-    getPosts: state => {
+    getCharacters: state => {
       state.loading = true
     },
-    getPostsSuccess: (state, { payload }) => {
-      state.posts = payload
+    getCharactersSuccess: (state, { payload }) => {
+      state.characters = payload
       state.loading = false
       state.hasErrors = false
     },
-    getPostsFailure: state => {
+    getCharactersFailure: state => {
       state.loading = false
       state.hasErrors = true
     },
   },
 })
 
-export const { getPosts, getPostsSuccess, getPostsFailure } = postsSlice.actions
-export const postsSelector = state => state.posts
-export default postsSlice.reducer
+export const { getCharacters, getCharactersSuccess, getCharactersFailure } = charactersSlice.actions
+export const charactersSelector = state => state.characters
+export default charactersSlice.reducer
 
 export function fetchCharacters(page = 1) {
   return async dispatch => {
-    dispatch(getPosts())
+    dispatch(getCharacters())
 
     try {
       const response = await fetch(`https://rickandmortyapi.com/api/character/?page=${page}`)
       const data = await response.json()
 
-      dispatch(getPostsSuccess(data))
+      dispatch(getCharactersSuccess(data))
     } catch (error) {
-      dispatch(getPostsFailure())
+      dispatch(getCharactersFailure())
     }
   }
 }

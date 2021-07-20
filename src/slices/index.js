@@ -1,9 +1,9 @@
 import { combineReducers } from 'redux'
 
-import postsReducer from './posts'
+import charactersReducer from './characters'
 
 const rootReducer = combineReducers({
-  posts: postsReducer,
+  characters: charactersReducer,
 })
 
 export default rootReducer
