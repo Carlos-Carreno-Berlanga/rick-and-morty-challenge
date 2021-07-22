@@ -1,10 +1,11 @@
-import { createSlice } from '@reduxjs/toolkit'
+import { createSlice } from '@reduxjs/toolkit';
+import cloneDeep from 'lodash/cloneDeep'
 
 export const initialState = {
   loading: false,
   hasErrors: false,
   characters: [],
-  savedCharacter: {}
+  savedCharacters: {}
 
 }
 
@@ -25,13 +26,16 @@ const charactersSlice = createSlice({
       state.hasErrors = true;
     },
     saveCharacterAction: (state, { payload }) => {
-      console.log("HOLA saveCharacterAction", payload);
-      state.savedCharacter = payload;
+
+      let savedCharacters = state.savedCharacters ? cloneDeep(state.savedCharacters) : {};
+      console.log("savedCharacters", savedCharacters, "state", state);
+      savedCharacters[payload] = !Boolean(savedCharacters[payload]);
+      state.savedCharacters = savedCharacters;
     },
   },
 })
 
-export const { getCharacters, getCharactersSuccess, getCharactersFailure, saveCharacter } = charactersSlice.actions
+export const { getCharacters, getCharactersSuccess, getCharactersFailure, saveCharacterAction } = charactersSlice.actions
 export const charactersSelector = state => state.characters
 export default charactersSlice.reducer
 
@@ -48,4 +52,9 @@ export function fetchCharacters(page = 1) {
       dispatch(getCharactersFailure())
     }
   }
+}
+
+
+export function saveCharacter(characterId) {
+  return dispatch => dispatch(saveCharacterAction(characterId));
 }

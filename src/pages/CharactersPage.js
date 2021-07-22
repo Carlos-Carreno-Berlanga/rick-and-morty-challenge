@@ -7,7 +7,7 @@ import DataTable from "react-data-table-component";
 
 const CharactersPage = () => {
   const dispatch = useDispatch();
-  const { characters, loading, hasErrors } = useSelector(charactersSelector);
+  const { characters, loading, hasErrors, savedCharacters } = useSelector(charactersSelector);
 
   useEffect(() => {
     setTotalRows(characters?.info?.count);
@@ -28,8 +28,7 @@ const CharactersPage = () => {
   const handleSaveCharacter = useCallback(
     row => async () => {
 
-      console.log("HOLAv2", row);
-      dispatch(saveCharacter(row));
+      dispatch(saveCharacter(row.id));
     },
     [dispatch]
   );
@@ -51,16 +50,19 @@ const CharactersPage = () => {
       {
         name: "Image",
         cell: (row) => {
-          return <div><img height={125} src={row.image} /></div>
+          return <div><img alt={`characher-${row.name}`} height={125} src={row.image} /></div>
         },
         id: "image"
       },
       {
-        // eslint-disable-next-line react/button-has-type
-        cell: row => <button onClick={handleSaveCharacter(row)}>Delete</button>
+
+        cell: row => <button onClick={handleSaveCharacter(row)}>{savedCharacters[row.id] ? "Delete" : "Save"}</button>
+      },
+      {
+        cell: row => <span style={{ height: "60px", width: "100px", fontSize: "36px", cursor: "pointer", lineHeight: "36px" }}>{savedCharacters[row.id] ? "💾" : "👍❔"}</span>
       }
     ],
-    [handleSaveCharacter]
+    [handleSaveCharacter, savedCharacters]
   );
 
 
