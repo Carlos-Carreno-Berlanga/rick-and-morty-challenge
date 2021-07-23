@@ -27,8 +27,8 @@
 
 // export default todosSlice.reducer
 /********************* */
-import { stubTrue } from 'lodash';
-import reducer, { getCharacters } from './characters';
+import reducer, { getCharacters, getCharactersSuccess } from './characters';
+import { store } from '../store';
 
 const initialState = {
   loading: false,
@@ -38,41 +38,56 @@ const initialState = {
 };
 
 test('should return the initial state', () => {
-  expect(reducer(undefined, {})).toEqual(
+
+  expect(store.getState().characters).toEqual(
     initialState
   )
-})
+});
 
 test('getCharacters should set loading to true', () => {
-  const previousState = initialState;
-  expect(reducer(previousState, getCharacters(previousState))).toEqual(
-    {
-      loading: true,
-      hasErrors: false,
-      characters: [],
-      savedCharacters: {}
-    }
+  // const previousState = initialState;
+  // const initialState = store.getState().characters;
+  store.dispatch(getCharacters());
+  const nextState = store.getState().characters;
+  expect(nextState.loading).toEqual(
+    true
   )
-})
+});
 
 // test('should handle a todo being added to an existing list', () => {
-//   const previousState = [
+//   const initialState = store.getState().book;;
+//   const previousState =
+//   {
+//     loading: true,
+//     hasErrors: false,
+//     characters: [],
+//     savedCharacters: {}
+//   };
+
+
+//   state = store.getState().book;
+
+//   expect(reducer(previousState, getCharactersSuccess(previousState, [{ id: 1, name: "Rick" }])).toEqual(
 //     {
-//       text: 'Run the tests',
-//       completed: true,
-//       id: 0
+//       loading: false,
+//       hasErrors: false,
+//       characters: [{ id: 1, name: "Rick" }],
+//       savedCharacters: {}
 //     }
-//   ]
-//   expect(reducer(previousState, todoAdded('Use Redux'))).toEqual([
-//     {
-//       text: 'Run the tests',
-//       completed: true,
-//       id: 0
-//     },
-//     {
-//       text: 'Use Redux',
-//       completed: false,
-//       id: 1
-//     }
-//   ])
+//   )
 // })
+
+// test('getCharactersSuccess should populate characters array', () => {
+//   const previousState =
+//   {
+//     loading: true,
+//     hasErrors: false,
+//     characters: [],
+//   };
+
+
+//   expect(reducer(previousState, getCharactersSuccess(previousState, { payload: "test" })
+//   )).toEqual(
+//     initialState
+//   )
+// });
