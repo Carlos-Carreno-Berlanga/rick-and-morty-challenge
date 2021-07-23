@@ -27,7 +27,7 @@
 
 // export default todosSlice.reducer
 /********************* */
-import reducer, { getCharacters, getCharactersSuccess } from './characters';
+import reducer, { getCharacters, getCharactersSuccess, getCharactersFailure } from './characters';
 import { store } from '../store';
 
 const initialState = {
@@ -52,6 +52,26 @@ test('getCharacters should set loading to true', () => {
   expect(nextState.loading).toEqual(
     true
   )
+});
+
+test('getCharactersSuccess should populate characters array when is successfull', () => {
+  const rickAndMortyCharacters = [{ id: 1, name: "Rick" }, { id: 2, name: "Morty" }];
+  store.dispatch(getCharactersSuccess(rickAndMortyCharacters));
+  const nextState = store.getState().characters;
+  expect(nextState.loading).toEqual(
+    false
+  );
+  expect(nextState.hasErrors).toEqual(false);
+  expect(nextState.characters).toEqual(rickAndMortyCharacters);
+});
+
+test('getCharactersSuccess should set error when is failure', () => {
+  store.dispatch(getCharactersFailure());
+  const nextState = store.getState().characters;
+  expect(nextState.loading).toEqual(
+    false
+  );
+  expect(nextState.hasErrors).toEqual(true);
 });
 
 // test('should handle a todo being added to an existing list', () => {
