@@ -27,7 +27,7 @@
 
 // export default todosSlice.reducer
 /********************* */
-import reducer, { getCharacters, getCharactersSuccess, getCharactersFailure } from './characters';
+import { getCharacters, getCharactersSuccess, getCharactersFailure, saveCharacterAction } from './characters';
 import { store } from '../store';
 
 const initialState = {
@@ -45,8 +45,6 @@ test('should return the initial state', () => {
 });
 
 test('getCharacters should set loading to true', () => {
-  // const previousState = initialState;
-  // const initialState = store.getState().characters;
   store.dispatch(getCharacters());
   const nextState = store.getState().characters;
   expect(nextState.loading).toEqual(
@@ -74,40 +72,16 @@ test('getCharactersSuccess should set error when is failure', () => {
   expect(nextState.hasErrors).toEqual(true);
 });
 
-// test('should handle a todo being added to an existing list', () => {
-//   const initialState = store.getState().book;;
-//   const previousState =
-//   {
-//     loading: true,
-//     hasErrors: false,
-//     characters: [],
-//     savedCharacters: {}
-//   };
+test('saveCharacterAction should set dictionary of characters', () => {
+  store.dispatch(saveCharacterAction(1));
+  const nextState = store.getState().characters;
+  expect(nextState.savedCharacters).toEqual(
+    { 1: true }
+  );
+  store.dispatch(saveCharacterAction(1));
+  const nextNextState = store.getState().characters;
+  expect(nextNextState.savedCharacters).toEqual(
+    { 1: false }
+  );
 
-
-//   state = store.getState().book;
-
-//   expect(reducer(previousState, getCharactersSuccess(previousState, [{ id: 1, name: "Rick" }])).toEqual(
-//     {
-//       loading: false,
-//       hasErrors: false,
-//       characters: [{ id: 1, name: "Rick" }],
-//       savedCharacters: {}
-//     }
-//   )
-// })
-
-// test('getCharactersSuccess should populate characters array', () => {
-//   const previousState =
-//   {
-//     loading: true,
-//     hasErrors: false,
-//     characters: [],
-//   };
-
-
-//   expect(reducer(previousState, getCharactersSuccess(previousState, { payload: "test" })
-//   )).toEqual(
-//     initialState
-//   )
-// });
+});
