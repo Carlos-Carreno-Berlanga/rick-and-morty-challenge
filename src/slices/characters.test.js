@@ -27,29 +27,33 @@
 
 // export default todosSlice.reducer
 /********************* */
-import reducer, { getCharacters } from './characters'
+import { stubTrue } from 'lodash';
+import reducer, { getCharacters } from './characters';
+
+const initialState = {
+  loading: false,
+  hasErrors: false,
+  characters: [],
+  savedCharacters: {}
+};
 
 test('should return the initial state', () => {
   expect(reducer(undefined, {})).toEqual(
+    initialState
+  )
+})
+
+test('getCharacters should set loading to true', () => {
+  const previousState = initialState;
+  expect(reducer(previousState, getCharacters(previousState))).toEqual(
     {
-      loading: false,
+      loading: true,
       hasErrors: false,
       characters: [],
       savedCharacters: {}
     }
   )
 })
-
-// test('should handle a todo being added to an empty list', () => {
-//   const previousState = []
-//   expect(reducer(previousState, todoAdded('Run the tests'))).toEqual([
-//     {
-//       text: 'Run the tests',
-//       completed: false,
-//       id: 0
-//     }
-//   ])
-// })
 
 // test('should handle a todo being added to an existing list', () => {
 //   const previousState = [
