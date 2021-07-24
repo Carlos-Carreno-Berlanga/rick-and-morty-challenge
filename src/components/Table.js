@@ -9,25 +9,31 @@ function Table({ loading, hasErrors, characters, columns, totalRows, currentPage
         </p>
     }
     if (hasErrors) {
-        return <p>Unable to display characthers.</p>
+        return <p>
+            <span role="failure-message">
+                Unable to display characthers.
+            </span>
+        </p>
     }
     if (characters?.results?.length > 0) {
-
         return (
-            <DataTable
-                title="Users"
-                columns={columns}
-                data={characters?.results}
-                progressPending={loading}
-                pagination
-                paginationServer
-                paginationTotalRows={totalRows}
-                paginationDefaultPage={currentPage}
-                paginationPerPage={20}
-                onChangePage={handlePageChange}
-                selectableRows={false}
-                paginationComponentOptions={{ noRowsPerPage: true }}
-            />);
+            <div role="characters-table">
+                <DataTable
+                    title="Users"
+                    columns={columns}
+                    data={characters?.results}
+                    progressPending={loading}
+                    pagination
+                    paginationServer
+                    paginationTotalRows={totalRows}
+                    paginationDefaultPage={currentPage}
+                    paginationPerPage={20}
+                    onChangePage={handlePageChange}
+                    selectableRows={false}
+                    paginationComponentOptions={{ noRowsPerPage: true }}
+                />
+            </div>
+        );
 
     }
 }
