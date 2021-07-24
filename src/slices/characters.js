@@ -1,5 +1,5 @@
 import { createSlice } from '@reduxjs/toolkit';
-import cloneDeep from 'lodash/cloneDeep'
+import cloneDeep from 'lodash/cloneDeep';
 
 export const initialState = {
   loading: false,
@@ -28,7 +28,6 @@ const charactersSlice = createSlice({
     saveCharacterAction: (state, { payload }) => {
 
       let savedCharacters = state.savedCharacters ? cloneDeep(state.savedCharacters) : {};
-      console.log("savedCharacters", savedCharacters, "state", state);
       savedCharacters[payload] = !Boolean(savedCharacters[payload]);
       state.savedCharacters = savedCharacters;
     },

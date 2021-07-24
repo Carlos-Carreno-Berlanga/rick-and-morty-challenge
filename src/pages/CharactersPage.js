@@ -3,7 +3,7 @@ import { useDispatch, useSelector } from 'react-redux';
 
 import { fetchCharacters, charactersSelector, saveCharacter } from '../slices/characters';
 
-import DataTable from "react-data-table-component";
+import Table from '../components/Table';
 
 const CharactersPage = () => {
   const dispatch = useDispatch();
@@ -56,40 +56,33 @@ const CharactersPage = () => {
       },
       {
 
-        cell: row => <button onClick={handleSaveCharacter(row)}>{savedCharacters[row.id] ? "Delete" : "Save"}</button>
+        cell: row =>
+          <button style={{ cursor: "pointer" }} onClick={handleSaveCharacter(row)}>
+            {savedCharacters[row.id] ? "Delete" : "Save"}
+          </button>
       },
       {
-        cell: row => <span style={{ height: "60px", width: "100px", fontSize: "36px", cursor: "pointer", lineHeight: "36px" }}>{savedCharacters[row.id] ? "💾" : "👍❔"}</span>
+        cell: row =>
+          <span style={{ height: "60px", width: "100px", fontSize: "36px", lineHeight: "36px" }}>
+            {savedCharacters[row.id] ? "💾" : "👍❔"}
+          </span>
       }
     ],
     [handleSaveCharacter, savedCharacters]
   );
 
-
-
   const renderCharacters = () => {
-    if (loading) return <p>Loading...</p>
-    if (hasErrors) return <p>Unable to display characthers.</p>
-    if (characters?.results?.length > 0) {
 
-      return (
-        <DataTable
-          title="Users"
-          columns={columns}
-          data={characters?.results}
-          progressPending={loading}
-          pagination
-          paginationServer
-          paginationTotalRows={totalRows}
-          paginationDefaultPage={currentPage}
-          paginationPerPage={20}
-          onChangePage={handlePageChange}
-          selectableRows={false}
-          paginationComponentOptions={{ noRowsPerPage: true }}
-          onSelectedRowsChange={({ selectedRows }) => console.log(selectedRows)}
-        />);
-
-    }
+    return (
+      <Table
+        loading={loading}
+        hasErrors={hasErrors}
+        characters={characters}
+        totalRows={totalRows}
+        currentPage={currentPage}
+        handlePageChange={handlePageChange}
+        columns={columns}
+      />);
   }
 
   return (
@@ -99,6 +92,5 @@ const CharactersPage = () => {
     </section>
   )
 }
-
 
 export default CharactersPage
