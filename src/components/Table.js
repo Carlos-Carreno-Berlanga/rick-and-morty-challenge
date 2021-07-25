@@ -4,7 +4,8 @@ import DataTable from "react-data-table-component";
 function Table({ loading, hasErrors, characters, columns, totalRows, currentPage, handlePageChange }) {
     if (loading) {
         return <p>
-            <span role="loading-message">Loading...
+            <span role="loading-message">
+                Loading...
             </span>
         </p>
     }
