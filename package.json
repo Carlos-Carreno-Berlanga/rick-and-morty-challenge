@@ -2,6 +2,7 @@
   "name": "rick-and-morty-challenge",
   "version": "0.1.0",
   "private": true,
+  "homepage": ".",
   "dependencies": {
     "@reduxjs/toolkit": "^1.6.0",
     "lodash": "^4.17.21",
