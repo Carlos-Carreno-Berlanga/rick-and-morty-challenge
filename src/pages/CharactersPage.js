@@ -72,7 +72,6 @@ const CharactersPage = () => {
   );
 
   const renderCharacters = () => {
-
     return (
       <Table
         loading={loading}

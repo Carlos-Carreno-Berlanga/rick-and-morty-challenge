@@ -35,8 +35,9 @@ function Table({ loading, hasErrors, characters, columns, totalRows, currentPage
                 />
             </div>
         );
-
     }
+
+    return null;
 }
 
 export default Table;
